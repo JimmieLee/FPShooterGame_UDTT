@@ -244,7 +244,7 @@ bool AFPShooterHero::GetFireTracePoint(const FVector& MuzzleSocketLocation, FVec
 
 				if (HitEnemy)
 				{
-					HitEnemy->GetHealthComponent()->TakeDamage(10.0f);
+					HitEnemy->GetHealthComponent()->TakeDamage(50.0f);
 				}
 			}	
 										

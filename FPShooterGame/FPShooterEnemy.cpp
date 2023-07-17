@@ -57,6 +57,11 @@ void AFPShooterEnemy::BeginPlay()
 		GetHealthComponent()->GetMaxHealth()) * 0.01f;	
 }
 
+void AFPShooterEnemy::Death()
+{
+	GetMesh()->SetSimulatePhysics(true);
+}
+
 void AFPShooterEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -69,6 +74,11 @@ void AFPShooterEnemy::TraceHit_Implementation(FHitResult TraceHit)
 	{
 		BulletImpact->PlayImpactEffects(TraceHit);
 	}	
+
+	if (GetHealthComponent()->GetCurrentHealth() <= 0.0f)
+	{
+		Death();
+	}
 
 	// 최종 Health Point의 %를 구한다.
 	HealthPointPercentage = GetHealthComponent()->AsPercentage(
