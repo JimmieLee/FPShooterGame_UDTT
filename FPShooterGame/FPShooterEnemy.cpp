@@ -62,6 +62,22 @@ void AFPShooterEnemy::Death()
 	GetMesh()->SetSimulatePhysics(true);
 }
 
+void AFPShooterEnemy::PlayHitReactMontage()
+{
+	// 적 캐릭터 메시의 애님 인스턴스를 구한다.
+	UAnimInstance* HitReactAnimInstance = GetMesh()->GetAnimInstance();
+
+	if (HitReactAnimInstance && HitReactMontage)
+	{
+		// 애님 인스턴스와 피격 몽타주가 유효하다면, 지정된 섹션의 몽타주를 실행.
+		HitReactAnimInstance->Montage_Play(HitReactMontage);
+		HitReactAnimInstance->Montage_JumpToSection(FName(TEXT("HitFront")));
+
+		/* DEBUG_LINE */
+		UE_LOG(LogTemp, Warning, TEXT("Hit Montage Play"));
+	}
+}
+
 void AFPShooterEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -79,6 +95,8 @@ void AFPShooterEnemy::TraceHit_Implementation(FHitResult TraceHit)
 	{
 		Death();
 	}
+
+	PlayHitReactMontage();
 
 	// 최종 Health Point의 %를 구한다.
 	HealthPointPercentage = GetHealthComponent()->AsPercentage(
