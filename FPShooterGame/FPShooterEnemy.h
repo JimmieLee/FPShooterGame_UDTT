@@ -35,11 +35,7 @@ private:
 
 	// Health Point Percentage
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
-		float HealthPointPercentage;
-
-	// 피격 애니메이션 몽타주
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-	class UAnimMontage* HitReactMontage;
+	float HealthPointPercentage;
 
 protected:
 	// Called when the game starts or when spawned
@@ -47,9 +43,6 @@ protected:
 
 	// 사망
 	void Death();
-
-	// 피격 애니메이션 몽타주 실행.
-	void PlayHitReactMontage();
 
 public:
 	// Called every frame
